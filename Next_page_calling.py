@@ -8,8 +8,6 @@ root.geometry("600x900+1200+50")
 x = 0
 num = 0
 # ______________________________FUNCTIONS____________________________________
-
-
 def station_selected_and_fare(event):
     global num
     x = 0
@@ -31,7 +29,7 @@ def update_amount():
 
 def update_change(another_event):
     print(currency_entry.get())
-    change_indicator.configure(text= f"$ {float(currency_entry.get()) - float(num * int(no_of_tix.get()))}")
+    change_indicator.configure(text= "$ %.2f" % (float(currency_entry.get()) - float(num * int(no_of_tix.get()))))
     if float(currency_entry.get()) - float(num * int(no_of_tix.get())) < 0:
         message_status.configure(text= "* Insufficient balance", fg= 'red')
     else:
@@ -46,9 +44,27 @@ def clear():
     fare.configure(state= 'readonly')
     no_of_tix.delete(0, 'end')
     no_of_tix.insert(0, 1)
+    total_amount_indicator.configure(text= "$ 0")
     currency_entry.delete(0, 'end')
     change_indicator.configure(text= "$ %.2f" % 0.00)
     message_status.configure(text= '*')
+    station_selected_and_fare(1)
+
+
+def return_():
+    station_option.current(4)
+    fare.configure(state= 'normal')
+    fare.delete(0, 'end')
+    fare.insert(0, "%.2f" % 0.00)
+    fare.configure(state= 'readonly')
+    no_of_tix.delete(0, 'end')
+    no_of_tix.insert(0, 1)
+    total_amount_indicator.configure(text= "$ 0")
+    currency_entry.delete(0, 'end')
+    change_indicator.configure(text= "$ %.2f" % 0.00)
+    message_status.configure(text= '*')
+    station_selected_and_fare(1)
+    proj.other_page(home_page_frame)
 
 
 def confirm():
@@ -59,8 +75,6 @@ def confirm():
         message_status.configure(text="*")
         clear()
         proj.other_page(home_page_frame)
-
-
 # ______________________________FUNCTIONS____________________________________
 
 
@@ -198,7 +212,7 @@ change_indicator.configure(font=('Times New Roman', 15))
 
 return_button = proj.button(mini_frames[8], 'Return', 15, 1,
                             0, 0, 0, 0, 0, 0)
-return_button.configure(command= lambda :proj.other_page(home_page_frame))
+return_button.configure(command= return_)
 clear_button = proj.button(mini_frames[8], 'Clear', 15, 1,
                             0, 1, 10, 10, 0, 0)
 clear_button.configure(command= clear)
