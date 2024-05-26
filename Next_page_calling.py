@@ -32,6 +32,34 @@ def update_amount():
 def update_change(another_event):
     print(currency_entry.get())
     change_indicator.configure(text= f"$ {float(currency_entry.get()) - float(num * int(no_of_tix.get()))}")
+    if float(currency_entry.get()) - float(num * int(no_of_tix.get())) < 0:
+        message_status.configure(text= "* Insufficient balance", fg= 'red')
+    else:
+        message_status.configure(text= "* The required balance is met", fg= 'green')
+
+
+def clear():
+    station_option.current(4)
+    fare.configure(state= 'normal')
+    fare.delete(0, 'end')
+    fare.insert(0, "%.2f" % 0.00)
+    fare.configure(state= 'readonly')
+    no_of_tix.delete(0, 'end')
+    no_of_tix.insert(0, 1)
+    currency_entry.delete(0, 'end')
+    change_indicator.configure(text= "$ %.2f" % 0.00)
+    message_status.configure(text= '*')
+
+
+def confirm():
+    if float(currency_entry.get()) - float(num * int(no_of_tix.get())) < 0:
+        message_status.configure(text="* Insufficient balance, cannot proceed", fg='red')
+    else:
+        proj2.create_messagebox("Update", "Ticket Purchased Successfully")
+        message_status.configure(text="*")
+        clear()
+        proj.other_page(home_page_frame)
+
 
 # ______________________________FUNCTIONS____________________________________
 
@@ -54,6 +82,7 @@ buy_ticket_as_user_frame.configure()
 
 create_account_frame = proj.frame_lvl_(main_frame, 'yellow', 0, 0, 'news')
 buy_ticket_as_user_frame.configure()
+
 # _______________LVL 2:_____________________
 
 # _____________________LVL 3: Real_______________________________
@@ -94,8 +123,6 @@ for i in range(9):
 # _______________LVL 4: One-time Ticket Purchase frames_____________________
 
 # ______________________________FRAMES_______________________________________
-
-
 
 
 
@@ -162,6 +189,7 @@ change_label = proj2.create_label(mini_frames[7], "Change: ",
 change_label.configure(font=('Times New Roman', 15))
 change_indicator = proj2.create_label(mini_frames[7], "$ 0",
                                            0, 1, 1, 0, 0, 0, 0,'w')
+message_status = proj2.create_label(mini_frames[7], '*', 1, 0, 2, 0, 0, 0, 0, 'w')
 change_indicator.configure(font=('Times New Roman', 15))
 
 return_button = proj.button(mini_frames[8], 'Return', 15, 1,
@@ -169,8 +197,10 @@ return_button = proj.button(mini_frames[8], 'Return', 15, 1,
 return_button.configure(command= lambda :proj.other_page(home_page_frame))
 clear_button = proj.button(mini_frames[8], 'Clear', 15, 1,
                             0, 1, 10, 10, 0, 0)
+clear_button.configure(command= clear)
 confirm_button = proj.button(mini_frames[8], 'Confirm', 15, 1,
                             0, 2, 0, 0, 0, 0)
+confirm_button.configure(command=confirm)
 
 # _______________LVL 4: One-time Ticket Purchase contents_____________________
 
