@@ -2,6 +2,7 @@ import tkinter as tk
 import sqlite3
 from tkinter import ttk
 from tkinter import *
+from tkinter import messagebox
 from tkinter import filedialog
 from tkcalendar import DateEntry
 from PIL import ImageTk, Image
@@ -86,6 +87,9 @@ class MyGui2:
         self.button = tk.Button(container, text= button_text, width= w, height= h, bg = bg, fg= fg)
         self.button.grid(row= i, column= j, padx= (padleft, padright), pady= (padtop, padbot), sticky= stick_side)
         return self.button
+
+    def create_messagebox(self, title, message):
+        messagebox.showinfo(f"{title}", f"{message}")
 
     def select_path(self):
         self.filepath = filedialog.askopenfilename(initialdir= "C:\\Users\\JASMIN R. DY\\PycharmProjects\\OOP_Payroll\\images",
