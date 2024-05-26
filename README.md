@@ -2,7 +2,7 @@
 
 This project is for our Final requirement in Objective Oriented Programming
 
-Members:
+#Members:
 Daniel Chou
 Justin Garcia
 Chanel Luvidece
