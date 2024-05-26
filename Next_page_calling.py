@@ -52,7 +52,7 @@ def clear():
 
 
 def confirm():
-    if float(currency_entry.get()) - float(num * int(no_of_tix.get())) < 0:
+    if currency_entry.get() == '' or float(currency_entry.get()) - float(num * int(no_of_tix.get())) < 0:
         message_status.configure(text="* Insufficient balance, cannot proceed", fg='red')
     else:
         proj2.create_messagebox("Update", "Ticket Purchased Successfully")
@@ -64,8 +64,7 @@ def confirm():
 # ______________________________FUNCTIONS____________________________________
 
 
-# ______________________________FRAMES_______________________________________
-
+# ____________________________________________________FRAMES___________________________________________________________
 # _______________LVL 1:_____________________
 main_frame = proj2.create_labelframe(root, '', None, 0, 0, 20, 0, 20, 0, 'w')
 # _______________LVL 1:_____________________
@@ -82,31 +81,34 @@ buy_ticket_as_user_frame.configure()
 
 create_account_frame = proj.frame_lvl_(main_frame, 'yellow', 0, 0, 'news')
 buy_ticket_as_user_frame.configure()
-
 # _______________LVL 2:_____________________
 
-# _____________________LVL 3: Real_______________________________
+# _______________________________________LVL 3:_______________________________________________________
 # ______________LVL 3: home_page_frame ________________
 frame_holder = proj2.create_frame(home_page_frame, None, 0, 0,
                                   100, 0, 15, 15, 'news')
 frame_holder.pack()
 # ______________LVL 3: home_page_frame ________________
 
-# _____________________LVL 3: Real_______________________________
+# _______________________________________LVL 3:_______________________________________________________
 
 
-# _______________LVL 3: Homepage frames_____________________
-purchase_ticket_frame = proj2.create_labelframe(frame_holder, 'Purchase Ticket', None, 0, 0, 0, 0, 10, 10, 'w')
-create_user_frame = proj2.create_labelframe(frame_holder, 'Create Account', None, 1, 0, 0, 0, 10, 10, 'w')
-# _______________LVL 3: Homepage frames_____________________
+# _______________________________________LVL 4:_______________________________________________________
+# _______________LVL 4: Homepage frames_____________________
+purchase_ticket_frame = proj2.create_labelframe(frame_holder, 'Purchase Ticket', None,
+                                                0, 0, 0, 0, 10, 10, 'w')
+create_user_frame = proj2.create_labelframe(frame_holder, 'Create Account', None,
+                                                1, 0, 0, 0, 10, 10, 'w')
+# _______________LVL 4: Homepage frames_____________________
 
-# _______________LVL 3: Buy ticket onetime frames_____________________
-one_time_ticket_purchase = proj2.create_labelframe(buy_ticket_onetime_frame, 'One-time Ticket Purchase', None,
+# _______________LVL 4: Buy ticket onetime frames_____________________
+one_time_ticket_purchase = proj2.create_labelframe(buy_ticket_onetime_frame, ' One-time Ticket Purchase', None,
                                                 0, 0, 30, 30, 30, 30, 'w')
 one_time_ticket_purchase.configure(font= ('Times New Roman', 25, 'bold'))
-# _______________LVL 3: Buy ticket onetime frames_____________________
+# _______________LVL 4: Buy ticket onetime frames_____________________
+# _______________________________________LVL 4:_______________________________________________________
 
-# _______________LVL 4: One-time Ticket Purchase frames_____________________
+# _______________LVL 5: One-time Ticket Purchase frames_____________________
 mini_frames = []
 for i in range(9):
     frame = proj2.create_frame(one_time_ticket_purchase, None,
@@ -115,22 +117,21 @@ for i in range(9):
     mini_frames.append(frame)
     if len(mini_frames) == 9:
         x = 0
-        # _______________LVL 5: mini_frame[2] frames_____________________
+        # _______________LVL 6: mini_frame[2] frames_____________________
         frame = proj2.create_frame(mini_frames[2], None,
                                    1, 0, 0, 0, 0, 0, 'w')
-        # _______________LVL 5: mini_frame[2] frames_____________________
+        # _______________LVL 6: mini_frame[2] frames_____________________
         mini_frames.append(frame)
-# _______________LVL 4: One-time Ticket Purchase frames_____________________
+# _______________LVL 5: One-time Ticket Purchase frames_____________________
 
-# ______________________________FRAMES_______________________________________
+# ____________________________________________________FRAMES___________________________________________________________
 
 
 
-# ______________________________CONTENT_______________________________________
+# ____________________________________________________FRAMES___________________________________________________________
 
-# ______________________________LVL 3_______________________________________
-
-# _______________LVL 3: Homepage content_____________________
+# ___________________________________LVL 2:_________________________________________________
+# _______________________LVL 2: Homepage content________________________________
 purchase_button1 = proj.button(purchase_ticket_frame, 'Purchase Ticket (One Time)', 25, 1,
                                0, 0, 10, 10, 20, 0)
 purchase_button1.configure(command= lambda :proj.other_page(buy_ticket_onetime_frame))
@@ -138,9 +139,12 @@ purchase_button2 = proj.button(purchase_ticket_frame, 'Purchase Ticket (As a use
                                1, 0, 10, 10, 20, 20)
 buy_ticket_button = proj.button(create_user_frame, 'Create an Account', 25, 1,
                                 1, 0, 10, 10, 20, 20)
-# _______________LVL 3: Homepage content_____________________
 
-# _______________LVL 4: One-time Ticket Purchase contents_____________________
+# _______________________LVL 2: Homepage content________________________________
+
+
+# ___________________LVL 2: Buy ticket one time content_________________________
+# ___________LVL 5: One-time Ticket Purchase contents___________
 options = ["Station -4","Station -3",
            "Station -2","Station -1",
            "Station 0","Station 1",
@@ -201,10 +205,9 @@ clear_button.configure(command= clear)
 confirm_button = proj.button(mini_frames[8], 'Confirm', 15, 1,
                             0, 2, 0, 0, 0, 0)
 confirm_button.configure(command=confirm)
-
-# _______________LVL 4: One-time Ticket Purchase contents_____________________
-
-# ______________________________LVL 3_______________________________________
+# ___________LVL 5: One-time Ticket Purchase contents___________
+# ___________________LVL 2: Buy ticket one time content_________________________
+# ___________________________________LVL 2:_________________________________________________
 
 # ______________________________CONTENT_______________________________________
 home_page_frame.tkraise()
