@@ -24,10 +24,8 @@ def station_selected_and_fare(event):
     fare.configure(state= 'readonly')
     total_amount_indicator.configure(text=f"$ {num * int(no_of_tix.get())}")
 
-
 def update_amount():
     total_amount_indicator.configure(text= f"$ {num * int(no_of_tix.get())}")
-
 
 def update_change(event):
     print(currency_entry.get())
@@ -37,8 +35,6 @@ def update_change(event):
     else:
         message_status.configure(text= "* The required balance is met", fg= 'green')
     print(event)
-
-
 
 def clear():
     x = 0
@@ -59,8 +55,6 @@ def clear():
         x += 1
         if x == len(entries_in_create_account):
             x = 0
-    imgeg.configure(image= proj2.insert_image('C:\\Users\\JASMIN R. DY\\PycharmProjects\\OOP_Payroll\\images\\image6.jpg',
-                                          150, 150))
     station_option_2.current(4)
     fare_2.configure(state='normal')
     fare_2.delete(0, 'end')
@@ -84,11 +78,6 @@ def confirm():
         clear()
         proj.other_page(home_page_frame)
 
-def insert_img():
-    global path
-    path = proj2.select_path()
-    new_img = proj2.insert_image(path, 150, 150)
-    imgeg.configure(image= new_img)
 
 def save_new_user():
     if entries_in_create_account[3].get() == entries_in_create_account[5].get() == '':
@@ -96,8 +85,6 @@ def save_new_user():
     elif entries_in_create_account[5].get() != entries_in_create_account[6].get():
         proj2.create_messagebox("Error", "Password Mismatch")
     else:
-        open_file = open(path, 'rb')
-        data = open_file.read()
         fields = ["First_name, Middle_name, Last_name, Username_, Email, Password"]
         values = ("'"+entries_in_create_account[0].get()+"','"+entries_in_create_account[1].get()+"','"+entries_in_create_account[2].get()+"',"
                   "'"+entries_in_create_account[3].get()+"','"+entries_in_create_account[4].get()+"','"+entries_in_create_account[5].get()+"'")
@@ -117,7 +104,7 @@ def login():
         proj2.create_messagebox("Error", "Password and Username Mismatch")
 
 def forgot_password(event):
-    proj.other_page(forgot_password_labelframe)
+    proj.other_page(forgot_password_frame)
 
 def station_selected_and_fare_2(event):
     global num_2
@@ -136,7 +123,6 @@ def station_selected_and_fare_2(event):
 def update_amount_2():
     total_amount_indicator_2.configure(text= f"$ {num_2 * int(no_of_tix_2.get())}")
 
-
 def update_change_2(event):
     print(currency_entry_2.get())
     change_indicator_2.configure(text= "$ %.2f" % (float(currency_entry_2.get()) - float(num * int(no_of_tix_2.get()))))
@@ -151,9 +137,6 @@ def check_password_validity(event):
         message_info_3.configure(text= "Password Mismatch", font= ('Times New Roman', 10, 'italic'), fg= 'red')
     else:
         message_info_3.configure(text="Password Match", font=('Times New Roman', 10, 'italic'), fg='green')
-
-
-
 # ______________________________FUNCTIONS____________________________________
 
 
@@ -162,7 +145,7 @@ def check_password_validity(event):
 main_frame = proj2.create_labelframe(root, '', None, 0, 0, 20, 0, 20, 0, 'w')
 # _______________LVL 1:_____________________
 
-# _______________LVL 2: _____________________
+# _______________LVL 2: frames contained in main_frame_____________________
 home_page_frame = proj.frame_lvl_(main_frame, None, 0, 0, 'news')
 
 buy_ticket_onetime_frame = proj.frame_lvl_(main_frame, None, 0, 0, 'news')
@@ -171,46 +154,44 @@ buy_ticket_as_user_frame = proj.frame_lvl_(main_frame, None, 0, 0, 'news')
 
 create_account_frame = proj.frame_lvl_(main_frame, None, 0, 0, 'news')
 
-forgot_password_labelframe = proj.frame_lvl_(main_frame, None, 0, 0, 'news')
+forgot_password_frame = proj.frame_lvl_(main_frame, None, 0, 0, 'news')
 
 user_frame = proj.frame_lvl_(main_frame, None, 0, 0, 'news')
-# _______________LVL 2:_____________________
+# _______________LVL 2: frames contained in main_frame_____________________
 
 # _______________________________________LVL 3:_______________________________________________________
-# ______________LVL 3: home_page_frame ________________
+# ______________LVL 3: frames contained in home_page_frame ________________
 frame_holder = proj2.create_frame(home_page_frame, None, 0, 0,
                                   100, 0, 15, 15, 'news')
 frame_holder.pack()
-# ______________LVL 3: home_page_frame ________________
+# ______________LVL 3: frames contained in home_page_frame ________________
 
-# _______________LVL 3: Buy ticket onetime frames_____________________
+# _______________LVL 3: frames contained in buy_ticket_onetime_frame_____________________
 one_time_ticket_purchase = proj2.create_labelframe(buy_ticket_onetime_frame, ' One-time Ticket Purchase', None,
                                                 0, 0, 30, 30, 30, 30, 'w')
 one_time_ticket_purchase.pack()
 one_time_ticket_purchase.configure(font= ('Times New Roman', 25, 'bold'))
-# _______________LVL 3: Buy ticket onetime frames_____________________
+# _______________LVL 3: frames contained in buy_ticket_onetime_frame_____________________
 
-# _______________LVL 3: Create Account frames_____________________
+# _______________LVL 3: frames contained in create_account_frame_____________________
 create_account_label_frame = proj2.create_labelframe(create_account_frame, ' Create an Account', None,
                                                 0, 0, 30, 30, 30, 30, 'n')
 create_account_label_frame.pack(padx= (30, 30), pady= (30, 30))
 create_account_label_frame.configure(font= ('Times New Roman', 25, 'bold'))
-# _______________LVL 3: Create Account frames_____________________
+# _______________LVL 3: frames contained in create_account_frame_____________________
 
-# _______________LVL 3: Buy ticket as user frames_____________________
+# _______________LVL 3: frames contained in buy_ticket_as_user_frame_____________________
 buy_as_user_labelframe = proj2.create_labelframe(buy_ticket_as_user_frame, 'Log-in', None, 0, 0, 0, 0, 0, 0, 'w')
 buy_as_user_labelframe.pack()
 buy_as_user_labelframe.configure(font= ('Times New Roman', 25, 'bold'))
 
-# _______________LVL 3: Buy ticket as user frames_____________________
+# _______________LVL 3: frames contained in buy_ticket_as_user_frame_____________________
 
-# _______________LVL 3: User frame frames_____________________
+# _______________LVL 3: frames contained in user_frame_____________________
 welcome_labelframe = proj2.create_labelframe(user_frame, 'Welcome', None, 0, 0, 0, 0, 0, 0, 'n')
 welcome_labelframe.pack()
 welcome_labelframe.configure(font= ('Times New Roman', 25, 'bold'))
-# _______________LVL 3: User frame frames_____________________
-
-
+# _______________LVL 3: frames contained in user_frame_____________________
 # _______________________________________LVL 3:_______________________________________________________
 
 
@@ -367,16 +348,6 @@ confirm_button.configure(command=confirm)
 # ___________________LVL 2: Buy ticket one time content_________________________
 
 # ___________________LVL 2: Create Account content_________________________
-pic_frame = proj.frame_lvl_(mini_frames_2[0], 'black', 0, 0, 'w')
-pic_frame.configure(width= 164, height= 164, borderwidth= 5)
-pic_frame.grid_propagate(False)
-imgeg = proj.label(pic_frame, '', 0, 0, 'n')
-img_1 = proj2.insert_image('C:\\Users\\JASMIN R. DY\\PycharmProjects\\OOP_Payroll\\images\\image6.jpg',
-                                          150, 150)
-imgeg.configure(image= img_1)
-insert_img_btn = proj.button(mini_frames_2[0], 'Insert Image', 15, 1,
-                             1, 0, 0, 0, 10, 0)
-insert_img_btn.configure(command= insert_img)
 message_info_1 = proj2.create_label(mini_frames_2[0], '* Inserting an image is optional',
                                     0, 1, 1, 0, 0, 0, 0, 'n')
 message_info_1_ = proj2.create_label(mini_frames_2[0], ' * Fields containing * are needed',
@@ -452,13 +423,6 @@ return_button_3.configure(command= lambda :(clear(), proj.other_page(home_page_f
 # ___________________LVL 2: Buy ticket as user content_________________________
 
 # ___________________LVL 2: User frame content_________________________
-pic_frame_2 = proj.frame_lvl_(mini_frames_4[0], 'black', 0, 0, 'w')
-pic_frame_2.configure(width= 164, height= 164, borderwidth= 5)
-pic_frame_2.grid_propagate(False)
-imgeg_2 = proj.label(pic_frame_2, '', 0, 0, 'n')
-img_2 = proj2.insert_image('C:\\Users\\JASMIN R. DY\\PycharmProjects\\OOP_Payroll\\images\\image6.jpg',
-                                          150, 150)
-imgeg_2.configure(image= img_2)
 label_info_frame = proj.frame_lvl_(mini_frames_4[0], None, 0, 1, 'n')
 greetings = proj2.create_label(label_info_frame, 'Hello, User!',
                                0, 0, 1, 0, 0, 0, 0,'nw')
@@ -518,9 +482,9 @@ return_button_4.configure(command= lambda :(clear(), proj.other_page(home_page_f
 # ___________________LVL 2: User frame content_________________________
 
 # ___________________LVL 2: Forgot password content_________________________
-email_ = proj2.create_entry_with_label(forgot_password_labelframe, 'Email: ', 'Times New Roman', 15, '', None,
+email_ = proj2.create_entry_with_label(forgot_password_frame, 'Email: ', 'Times New Roman', 15, '', None,
                                        25, 0, 0, 0, 1, 0, 0, 0, 0, 'w')
-return_button_5 = proj.button(forgot_password_labelframe, 'Return', 15, 1, 0, 0, 0, 0, 0, 0)
+return_button_5 = proj.button(forgot_password_frame, 'Return', 15, 1, 0, 0, 0, 0, 0, 0)
 return_button_5.configure(command= lambda :(proj.other_page(home_page_frame)))
 # ___________________LVL 2: Forgot password content_________________________
 
