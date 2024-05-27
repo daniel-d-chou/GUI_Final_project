@@ -150,20 +150,20 @@ home_page_frame = proj.frame_lvl_(main_frame, None, 0, 0, 'news')
 
 buy_ticket_onetime_frame = proj.frame_lvl_(main_frame, None, 0, 0, 'news')
 
-buy_ticket_as_user_frame = proj.frame_lvl_(main_frame, None, 0, 0, 'news')
-
 create_account_frame = proj.frame_lvl_(main_frame, None, 0, 0, 'news')
 
-forgot_password_frame = proj.frame_lvl_(main_frame, None, 0, 0, 'news')
+buy_ticket_as_user_frame = proj.frame_lvl_(main_frame, None, 0, 0, 'news')
 
 user_frame = proj.frame_lvl_(main_frame, None, 0, 0, 'news')
+
+forgot_password_frame = proj.frame_lvl_(main_frame, None, 0, 0, 'news')
 # _______________LVL 2: frames contained in main_frame_____________________
 
 # _______________________________________LVL 3:_______________________________________________________
 # ______________LVL 3: frames contained in home_page_frame ________________
-frame_holder = proj2.create_frame(home_page_frame, None, 0, 0,
+frame_holder_1 = proj2.create_frame(home_page_frame, None, 0, 0,
                                   100, 0, 15, 15, 'news')
-frame_holder.pack()
+frame_holder_1.pack()
 # ______________LVL 3: frames contained in home_page_frame ________________
 
 # _______________LVL 3: frames contained in buy_ticket_onetime_frame_____________________
@@ -178,34 +178,39 @@ create_account_label_frame = proj2.create_labelframe(create_account_frame, ' Cre
                                                 0, 0, 30, 30, 30, 30, 'n')
 create_account_label_frame.pack(padx= (30, 30), pady= (30, 30))
 create_account_label_frame.configure(font= ('Times New Roman', 25, 'bold'))
+frame_holder_2 = proj.frame_lvl_(create_account_label_frame, None, 0, 0, 'n')
+frame_holder_2.pack()
 # _______________LVL 3: frames contained in create_account_frame_____________________
 
 # _______________LVL 3: frames contained in buy_ticket_as_user_frame_____________________
 buy_as_user_labelframe = proj2.create_labelframe(buy_ticket_as_user_frame, 'Log-in', None, 0, 0, 0, 0, 0, 0, 'w')
 buy_as_user_labelframe.pack()
 buy_as_user_labelframe.configure(font= ('Times New Roman', 25, 'bold'))
-
+frame_holder_3 = proj.frame_lvl_(buy_as_user_labelframe, None, 0, 0, 'n')
+frame_holder_3.pack(padx= (10, 20), pady= (20, 20))
 # _______________LVL 3: frames contained in buy_ticket_as_user_frame_____________________
 
 # _______________LVL 3: frames contained in user_frame_____________________
 welcome_labelframe = proj2.create_labelframe(user_frame, 'Welcome', None, 0, 0, 0, 0, 0, 0, 'n')
 welcome_labelframe.pack()
 welcome_labelframe.configure(font= ('Times New Roman', 25, 'bold'))
+frame_holder_4 = proj.frame_lvl_(welcome_labelframe, None, 0, 0, 'n')
+frame_holder_4.pack(padx= 80, pady= (0, 20))
 # _______________LVL 3: frames contained in user_frame_____________________
 # _______________________________________LVL 3:_______________________________________________________
 
 
 # _______________________________________LVL 4:_______________________________________________________
-# _______________LVL 4: Homepage frames_____________________
-purchase_ticket_frame = proj2.create_labelframe(frame_holder, 'Purchase Ticket', None,
+# _______________LVL 4: frames contained in frame_holder_1(a frame inside home_page_frame)_____________________
+purchase_ticket_frame = proj2.create_labelframe(frame_holder_1, 'Purchase Ticket', None,
                                                 1, 0, 0, 0, 10, 10, 'n')
 purchase_ticket_frame.configure(font= ('Times New Roman', 20, 'italic bold'))
-create_user_frame = proj2.create_labelframe(frame_holder, 'Create Account', None,
+create_user_frame = proj2.create_labelframe(frame_holder_1, 'Create Account', None,
                                                 2, 0, 0, 0, 10, 10, 'n')
 create_user_frame.configure(font= ('Times New Roman', 20, 'italic bold'))
-# _______________LVL 4: Homepage frames_____________________
+# _______________LVL 4: frames contained in frame_holder_1(a frame inside home_page_frame)_____________________
 
-# _______________LVL 4: Buy ticket onetime frames_____________________
+# _______________LVL 4: frames contained in one_time_ticket_purchase(a frame inside buy_ticket_onetime_frame)_____________________
 mini_frames = []
 for i in range(9):
     frame = proj2.create_frame(one_time_ticket_purchase, None,
@@ -214,16 +219,14 @@ for i in range(9):
     mini_frames.append(frame)
     if len(mini_frames) == 9:
         x = 0
-        # _______________LVL 5: Buy ticket onetime frames_____________________
+        # _______________LVL 5: frame contained in mini_frames[2](a frame inside one_time_ticket_purchase)_____________________
         frame = proj2.create_frame(mini_frames[2], None,
                                    1, 0, 0, 0, 0, 0, 'w')
-        # _______________LVL 5: Buy ticket onetime frames_____________________
+        # _______________LVL 5: frame contained in mini_frames[2](a frame inside one_time_ticket_purchase)_____________________
         mini_frames.append(frame)
-# _______________LVL 4: Buy ticket onetime frames_____________________
+# _______________LVL 4: frames contained in one_time_ticket_purchase(a frame inside buy_ticket_onetime_frame)_____________________
 
-# _______________LVL 4: Create Account frames_____________________
-frame_holder_2 = proj.frame_lvl_(create_account_label_frame, None, 0, 0, 'n')
-frame_holder_2.pack()
+# _______________LVL 4: frames contained in frame_holder_2 (a frame contained in create_account_frame) _____________________
 mini_frames_2 = []
 for i in range(7):
     frame1 = proj2.create_frame(frame_holder_2, None, x, 0, 10, 0, 10, 0, 'w')
@@ -232,12 +235,9 @@ for i in range(7):
     if len(mini_frames_2) == 7:
         mini_frames_2[2].configure()
         x = 0
-# _______________LVL 4: Create Account frames_____________________
+# _______________LVL 4: frames contained in frame_holder_2 (a frame contained in create_account_frame) _____________________
 
-# _______________LVL 4: Buy ticket as user frames_____________________
-frame_holder_3 = proj.frame_lvl_(buy_as_user_labelframe, None, 0, 0, 'n')
-frame_holder_3.pack(padx= (10, 20), pady= (20, 20))
-
+# _______________LVL 4: frames contained in frame_holder_3 (a frame contained in buy_ticket_as_user_frame) _____________________
 mini_frames_3 = []
 for i in range(7):
     frame2 = proj2.create_frame(frame_holder_3, None, x, 0, 0, 0, 15, 0, 'n')
@@ -245,12 +245,9 @@ for i in range(7):
     x += 1
     if len(mini_frames_3) == 7:
         x = 0
-# _______________LVL 4: Buy ticket as user frames_____________________
+# _______________LVL 4: frames contained in frame_holder_3 (a frame contained in buy_ticket_as_user_frame) _____________________
 
-# _______________LVL 4: User frame frames_____________________
-frame_holder_4 = proj.frame_lvl_(welcome_labelframe, None, 0, 0, 'n')
-frame_holder_4.pack(padx= 80, pady= (0, 20))
-
+# _______________LVL 4: frames contained in frame_holder_4 (a frame contained in user_frame) _____________________
 mini_frames_4 = []
 for i in range(10):
     frame3 = proj2.create_frame(frame_holder_4, None, x, 0, 10, 10, 10, 0, 'n')
@@ -260,19 +257,17 @@ for i in range(10):
         frame3 = proj2.create_frame(mini_frames_4[3], None, 1, 0, 0, 0, 15, 0, 'n')
         mini_frames_4.append(frame3)
         x = 0
-# _______________LVL 4: User frame frames_____________________
+# _______________LVL 4: frames contained in frame_holder_4 (a frame contained in user_frame) _____________________
 # _______________________________________LVL 4:_______________________________________________________
-
-
 # ____________________________________________________FRAMES___________________________________________________________
 
 
 
 # ____________________________________________________CONTENTS__________________________________________________________
-
 # ___________________________________LVL 2:_________________________________________________
-# _______________________LVL 2: Homepage content________________________________
-main_label = proj2.create_label(frame_holder, 'Ticket Trove Machine',
+
+# ___________________________________LVL 2: Contents seen in home_page-frame_________________________________________________
+main_label = proj2.create_label(frame_holder_1, 'Ticket Trove Machine',
                                 0, 0, 1, 0, 0, 0, 10, 'n')
 main_label.configure(font= ('Cambria', 30, 'bold'))
 purchase_button1 = proj.button(purchase_ticket_frame, 'Purchase Ticket (One Time)', 25, 1,
@@ -284,10 +279,10 @@ purchase_button2.configure(font= ('Times New Roman', 15, 'bold'), command= lambd
 create_account_button = proj.button(create_user_frame, 'Create an Account', 25, 1,
                                 1, 0, 10, 10, 20, 20)
 create_account_button.configure(font= ('Times New Roman', 15, 'bold'), command= lambda :(proj.other_page(create_account_frame)))
-# _______________________LVL 2: Homepage content________________________________
+# ___________________________________LVL 2: Contents seen in home_page-frame_________________________________________________
 
 
-# ___________________LVL 2: Buy ticket one time content_________________________
+# ___________________________________LVL 2: Contents seen in buy_ticket_onetime_frame_________________________________________________
 options = ["Station -4","Station -3","Station -2","Station -1","Station 0","Station 1","Station 2", "Station 3",
            "Station 4"]
 current_station_label = proj2.create_label(mini_frames[0], "You're in: Station 0",
@@ -345,9 +340,9 @@ clear_button.configure(command= clear)
 confirm_button = proj.button(mini_frames[8], 'Confirm', 15, 1,
                             0, 2, 0, 0, 0, 0)
 confirm_button.configure(command=confirm)
-# ___________________LVL 2: Buy ticket one time content_________________________
+# ___________________________________LVL 2: Contents seen in buy_ticket_onetime_frame_________________________________________________
 
-# ___________________LVL 2: Create Account content_________________________
+# ___________________________________LVL 2: Contents seen in create_account_frame_________________________________________________
 message_info_1 = proj2.create_label(mini_frames_2[0], '* Inserting an image is optional',
                                     0, 1, 1, 0, 0, 0, 0, 'n')
 message_info_1_ = proj2.create_label(mini_frames_2[0], ' * Fields containing * are needed',
@@ -400,11 +395,10 @@ clear_button_2.configure(command= clear)
 save_button = proj.button(mini_frames_2[4], 'Create Account', 15, 1,
                           0, 3, 10, 0, 0, 0, )
 save_button.configure(command= save_new_user)
+# ___________________________________LVL 2: Contents seen in create_account_frame_________________________________________________
 
-# ___________________LVL 2: Create Account content_________________________
 
-
-# ___________________LVL 2: Buy ticket as user content_________________________
+# ___________________________________LVL 2: Contents seen in buy_ticket_as_user_frame_________________________________________________
 username = proj2.create_entry_with_label(mini_frames_3[1], 'Username: ', 'Times New Roman', 15, '',
                                          None, 20, 0, 0, 0, 1, 0, 0, 0, 0, 'w')
 password = proj2.create_entry_with_label(mini_frames_3[2], 'Password: ', 'Times New Roman', 15, '',
@@ -420,9 +414,10 @@ forgor_password.bind('<Button-1>', forgot_password)
 return_button_3 = proj.button(mini_frames_3[6], 'Return', 15, 1,
                               0, 0, 0, 0, 0, 0)
 return_button_3.configure(command= lambda :(clear(), proj.other_page(home_page_frame)))
-# ___________________LVL 2: Buy ticket as user content_________________________
+# ___________________________________LVL 2: Contents seen in buy_ticket_as_user_frame_________________________________________________
 
-# ___________________LVL 2: User frame content_________________________
+
+# ___________________________________LVL 2: Contents seen in user_frame_________________________________________________
 label_info_frame = proj.frame_lvl_(mini_frames_4[0], None, 0, 1, 'n')
 greetings = proj2.create_label(label_info_frame, 'Hello, User!',
                                0, 0, 1, 0, 0, 0, 0,'nw')
@@ -479,18 +474,16 @@ change_indicator_2.configure(font=('Times New Roman', 15))
 
 return_button_4 = proj.button(mini_frames_4[9], 'Return', 15, 1, 0, 0, 0, 0, 0, 0)
 return_button_4.configure(command= lambda :(clear(), proj.other_page(home_page_frame)))
-# ___________________LVL 2: User frame content_________________________
+# ___________________________________LVL 2: Contents seen in user_frame_________________________________________________
 
-# ___________________LVL 2: Forgot password content_________________________
+# ___________________________________LVL 2: Contents seen in forgot_password_frame_________________________________________________
 email_ = proj2.create_entry_with_label(forgot_password_frame, 'Email: ', 'Times New Roman', 15, '', None,
                                        25, 0, 0, 0, 1, 0, 0, 0, 0, 'w')
 return_button_5 = proj.button(forgot_password_frame, 'Return', 15, 1, 0, 0, 0, 0, 0, 0)
 return_button_5.configure(command= lambda :(proj.other_page(home_page_frame)))
-# ___________________LVL 2: Forgot password content_________________________
-
+# ___________________________________LVL 2: Contents seen in forgot_password_frame_________________________________________________
 
 # ___________________________________LVL 2:_________________________________________________
-
 # ____________________________________________________CONTENTS__________________________________________________________
 home_page_frame.tkraise()
 root.mainloop()
