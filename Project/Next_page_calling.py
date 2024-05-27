@@ -8,6 +8,7 @@ root = proj.root_lvl1_(800, 600)
 root.geometry("670x900+1200+50")
 x = 0
 num = 0
+
 # ______________________________FUNCTIONS____________________________________
 def station_selected_and_fare(event):
     global num
@@ -72,6 +73,7 @@ def clear():
     change_indicator_2.configure(text="$ %.2f" % 0.00)
     message_status_2.configure(text='*')
     station_selected_and_fare_2(1)
+    message_info_3.configure(text= '*', fg= 'black')
 
 def confirm():
     if currency_entry.get() == '' or float(currency_entry.get()) - float(num * int(no_of_tix.get())) < 0:
@@ -83,27 +85,36 @@ def confirm():
         proj.other_page(home_page_frame)
 
 def insert_img():
-    new_img = proj2.insert_image(proj2.select_path(), 150, 150)
+    global path
+    path = proj2.select_path()
+    new_img = proj2.insert_image(path, 150, 150)
     imgeg.configure(image= new_img)
 
 def save_new_user():
-    try:
-        connection = sqlite3.connect("OOP_Final_projectDB")
-        conn = connection.cursor()
-        query = ("INSERT INTO User_Information"
-                 " (First_name, Middle_name, Last_name, Username, Email, Password)"
-                 " VALUES (?, ?, ?, ?, ?, ?)",
-                 (entries_in_create_account[0].get(), entries_in_create_account[1].get(), entries_in_create_account[2].get(),
-                  entries_in_create_account[3].get(), entries_in_create_account[4].get(), entries_in_create_account[5].get()))
-        conn.execute(*query)
-        connection.commit()
-        connection.close()
+    if entries_in_create_account[3].get() == entries_in_create_account[5].get() == '':
+        proj2.create_messagebox("Error", "Crucial Fields are unfilled")
+    elif entries_in_create_account[5].get() != entries_in_create_account[6].get():
+        proj2.create_messagebox("Error", "Password Mismatch")
+    else:
+        open_file = open(path, 'rb')
+        data = open_file.read()
+        fields = ["First_name, Middle_name, Last_name, Username_, Email, Password"]
+        values = ("'"+entries_in_create_account[0].get()+"','"+entries_in_create_account[1].get()+"','"+entries_in_create_account[2].get()+"',"
+                  "'"+entries_in_create_account[3].get()+"','"+entries_in_create_account[4].get()+"','"+entries_in_create_account[5].get()+"'")
+        proj2.save_data_into_database("OOP_Final_projectDB", "Use_Information", fields[0], values)
         proj.other_page(home_page_frame)
-    except sqlite3.IntegrityError:
-        proj2.create_messagebox("Error", "Username Already exists")
+        clear()
 
 def login():
-    proj.other_page(user_frame)
+    command = (f"SELECT Password "
+               f"FROM Use_Information "
+               f"WHERE Username_ == '{str(username.get())}'")
+    ok = proj2.cursor_database("OOP_Final_projectDB", command)
+    if password.get() == ok[0]:
+        proj.other_page(user_frame)
+        print(ok[0])
+    else:
+        proj2.create_messagebox("Error", "Password and Username Mismatch")
 
 def forgot_password(event):
     proj.other_page(forgot_password_labelframe)
@@ -122,7 +133,6 @@ def station_selected_and_fare_2(event):
     fare_2.configure(state= 'readonly')
     total_amount_indicator_2.configure(text=f"$ {num_2 * int(no_of_tix_2.get())}")
 
-
 def update_amount_2():
     total_amount_indicator_2.configure(text= f"$ {num_2 * int(no_of_tix_2.get())}")
 
@@ -136,6 +146,13 @@ def update_change_2(event):
         message_status_2.configure(text= "* The required balance is met", fg= 'green')
         print(event)
 
+def check_password_validity(event):
+    if entries_in_create_account[5].get() != entries_in_create_account[6].get():
+        message_info_3.configure(text= "Password Mismatch", font= ('Times New Roman', 10, 'italic'), fg= 'red')
+    else:
+        message_info_3.configure(text="Password Match", font=('Times New Roman', 10, 'italic'), fg='green')
+
+
 
 # ______________________________FUNCTIONS____________________________________
 
@@ -147,16 +164,16 @@ main_frame = proj2.create_labelframe(root, '', None, 0, 0, 20, 0, 20, 0, 'w')
 
 # _______________LVL 2: _____________________
 home_page_frame = proj.frame_lvl_(main_frame, None, 0, 0, 'news')
-home_page_frame.configure(width= 400, height= 200)
 
 buy_ticket_onetime_frame = proj.frame_lvl_(main_frame, None, 0, 0, 'news')
-buy_ticket_onetime_frame.configure(width= 400, height= 200)
 
 buy_ticket_as_user_frame = proj.frame_lvl_(main_frame, None, 0, 0, 'news')
-create_account_frame = proj.frame_lvl_(main_frame, None, 0, 0, 'news')
-forgot_password_labelframe = proj.frame_lvl_(main_frame, None, 0, 0, 'news')
-user_frame = proj.frame_lvl_(main_frame, None, 0, 0, 'news')
 
+create_account_frame = proj.frame_lvl_(main_frame, None, 0, 0, 'news')
+
+forgot_password_labelframe = proj.frame_lvl_(main_frame, None, 0, 0, 'news')
+
+user_frame = proj.frame_lvl_(main_frame, None, 0, 0, 'news')
 # _______________LVL 2:_____________________
 
 # _______________________________________LVL 3:_______________________________________________________
@@ -200,9 +217,11 @@ welcome_labelframe.configure(font= ('Times New Roman', 25, 'bold'))
 # _______________________________________LVL 4:_______________________________________________________
 # _______________LVL 4: Homepage frames_____________________
 purchase_ticket_frame = proj2.create_labelframe(frame_holder, 'Purchase Ticket', None,
-                                                0, 0, 0, 0, 10, 10, 'w')
+                                                1, 0, 0, 0, 10, 10, 'n')
+purchase_ticket_frame.configure(font= ('Times New Roman', 20, 'italic bold'))
 create_user_frame = proj2.create_labelframe(frame_holder, 'Create Account', None,
-                                                1, 0, 0, 0, 10, 10, 'w')
+                                                2, 0, 0, 0, 10, 10, 'n')
+create_user_frame.configure(font= ('Times New Roman', 20, 'italic bold'))
 # _______________LVL 4: Homepage frames_____________________
 
 # _______________LVL 4: Buy ticket onetime frames_____________________
@@ -272,15 +291,18 @@ for i in range(10):
 
 # ___________________________________LVL 2:_________________________________________________
 # _______________________LVL 2: Homepage content________________________________
+main_label = proj2.create_label(frame_holder, 'Ticket Trove Machine',
+                                0, 0, 1, 0, 0, 0, 10, 'n')
+main_label.configure(font= ('Cambria', 30, 'bold'))
 purchase_button1 = proj.button(purchase_ticket_frame, 'Purchase Ticket (One Time)', 25, 1,
-                               0, 0, 10, 10, 20, 0)
-purchase_button1.configure(command= lambda :proj.other_page(buy_ticket_onetime_frame))
+                               0, 0, 15, 15, 20, 0)
+purchase_button1.configure(font= ('Times New Roman', 15, 'bold'), command= lambda :proj.other_page(buy_ticket_onetime_frame))
 purchase_button2 = proj.button(purchase_ticket_frame, 'Purchase Ticket (As a user)', 25, 1,
                                1, 0, 10, 10, 20, 20)
-purchase_button2.configure(command= lambda : proj.other_page(buy_ticket_as_user_frame))
+purchase_button2.configure(font= ('Times New Roman', 15, 'bold'), command= lambda : proj.other_page(buy_ticket_as_user_frame))
 create_account_button = proj.button(create_user_frame, 'Create an Account', 25, 1,
                                 1, 0, 10, 10, 20, 20)
-create_account_button.configure(command= lambda :(proj.other_page(create_account_frame)))
+create_account_button.configure(font= ('Times New Roman', 15, 'bold'), command= lambda :(proj.other_page(create_account_frame)))
 # _______________________LVL 2: Homepage content________________________________
 
 
@@ -361,7 +383,7 @@ message_info_1_ = proj2.create_label(mini_frames_2[0], ' * Fields containing * a
                                     0, 1, 1, 0, 0, 25, 0, 'n')
 message_info_1.configure(font= ('Times New Roman', 10, 'italic'))
 message_info_1_.configure(font= ('Times New Roman', 10, 'italic'))
-label_names_1 = ['First Name*', 'Middle Name', 'Last Name']
+label_names_1 = ['First Name', 'Middle Name', 'Last Name']
 label_names_2 = ['Password*', 'Confirm Password*']
 entries_in_create_account = []
 for i in label_names_1:
@@ -372,7 +394,7 @@ for i in label_names_1:
     if x == len(label_names_1):
         x = 0
 
-username_acc = proj2.create_entry_with_label(mini_frames_2[2], 'Username', 'Times New Roman', 13, '', None,
+username_acc = proj2.create_entry_with_label(mini_frames_2[2], 'Username*', 'Times New Roman', 13, '', None,
                                       23, 0, 0, 1, 0, 0, 10, 0, 0, 'w')
 entries_in_create_account.append(username_acc)
 
@@ -394,6 +416,7 @@ for i in label_names_2:
         x = 0
         for index in [5, 6]:
             entries_in_create_account[index].configure(show= '*')
+            entries_in_create_account[6].bind('<KeyRelease>', check_password_validity)
 message_info_3 = proj2.create_label(mini_frames_2[3], '*', 0, 2, 1, 0, 0, 0, 0, 'w')
 
 
@@ -488,7 +511,6 @@ change_indicator_2 = proj2.create_label(mini_frames_4[7], "$ 0",
                                            0, 1, 1, 0, 0, 0, 0,'w')
 message_status_2 = proj2.create_label(mini_frames_4[7], '*', 1, 0, 2, 0, 0, 0, 0, 'w')
 change_indicator_2.configure(font=('Times New Roman', 15))
-
 
 
 return_button_4 = proj.button(mini_frames_4[9], 'Return', 15, 1, 0, 0, 0, 0, 0, 0)
