@@ -4,7 +4,7 @@ import GUI_Class_file
 proj = Next_Page_class.Our_project()
 proj2 = GUI_Class_file.MyGui2()
 root = proj.root_lvl1_(800, 600)
-root.geometry("600x900+1200+50")
+root.geometry("750x900+1100+50")
 x = 0
 num = 0
 # ______________________________FUNCTIONS____________________________________
@@ -37,6 +37,7 @@ def update_change(another_event):
 
 
 def clear():
+    x = 0
     station_option.current(4)
     fare.configure(state= 'normal')
     fare.delete(0, 'end')
@@ -49,7 +50,13 @@ def clear():
     change_indicator.configure(text= "$ %.2f" % 0.00)
     message_status.configure(text= '*')
     station_selected_and_fare(1)
-
+    for i in entries_in_create_account:
+        entries_in_create_account[x].delete(0, 'end')
+        x += 1
+        if x == len(entries_in_create_account):
+            x = 0
+    imgeg.configure(image= proj2.insert_image('C:\\Users\\JASMIN R. DY\\PycharmProjects\\OOP_Payroll\\images\\image6.jpg',
+                                          150, 150))
 
 def confirm():
     if currency_entry.get() == '' or float(currency_entry.get()) - float(num * int(no_of_tix.get())) < 0:
@@ -59,6 +66,15 @@ def confirm():
         message_status.configure(text="*")
         clear()
         proj.other_page(home_page_frame)
+
+def insert_img():
+    new_img = proj2.insert_image(proj2.select_path(), 150, 150)
+    imgeg.configure(image= new_img)
+
+def save_new_user():
+
+    print("New User Added")
+
 # ______________________________FUNCTIONS____________________________________
 
 
@@ -91,8 +107,16 @@ frame_holder.pack()
 # _______________LVL 3: Buy ticket onetime frames_____________________
 one_time_ticket_purchase = proj2.create_labelframe(buy_ticket_onetime_frame, ' One-time Ticket Purchase', None,
                                                 0, 0, 30, 30, 30, 30, 'w')
+one_time_ticket_purchase.pack()
 one_time_ticket_purchase.configure(font= ('Times New Roman', 25, 'bold'))
 # _______________LVL 3: Buy ticket onetime frames_____________________
+
+# _______________LVL 3: Create Account frames_____________________
+create_account_label_frame = proj2.create_labelframe(create_account_frame, ' Create an Account', None,
+                                                0, 0, 30, 30, 30, 30, 'n')
+create_account_label_frame.pack(padx= (30, 30), pady= (30, 30))
+create_account_label_frame.configure(font= ('Times New Roman', 25, 'bold'))
+# _______________LVL 3: Create Account frames_____________________
 # _______________________________________LVL 3:_______________________________________________________
 
 
@@ -121,12 +145,15 @@ for i in range(9):
 # _______________LVL 4: Buy ticket onetime frames_____________________
 
 # _______________LVL 4: Create Account frames_____________________
+frame_holder_2 = proj.frame_lvl_(create_account_label_frame, None, 0, 0, 'n')
+frame_holder_2.pack()
 mini_frames_2 = []
 for i in range(7):
-    frame1 = proj.frame_lvl_(create_account_frame, None, x, 0, 'n')
+    frame1 = proj2.create_frame(frame_holder_2, None, x, 0, 10, 0, 10, 0, 'w')
     mini_frames_2.append(frame1)
     x += 1
     if len(mini_frames_2) == 7:
+        mini_frames_2[2].configure()
         x = 0
 # _______________LVL 4: Create Account frames_____________________
 # _______________________________________LVL 4:_______________________________________________________
@@ -210,10 +237,63 @@ confirm_button.configure(command=confirm)
 # ___________________LVL 2: Buy ticket one time content_________________________
 
 # ___________________LVL 2: Create Account content_________________________
+pic_frame = proj.frame_lvl_(mini_frames_2[0], 'black', 0, 0, 'w')
+pic_frame.configure(width= 164, height= 164, borderwidth= 5)
+pic_frame.grid_propagate(False)
+imgeg = proj.label(pic_frame, '', 0, 0)
+imgeg.configure(image= proj2.insert_image('C:\\Users\\JASMIN R. DY\\PycharmProjects\\OOP_Payroll\\images\\image6.jpg',
+                                          150, 150))
+insert_img_btn = proj.button(mini_frames_2[0], 'Insert Image', 15, 1,
+                             1, 0, 0, 0, 10, 0)
+insert_img_btn.configure(command= insert_img)
+message_info_1 = proj2.create_label(mini_frames_2[0], '* Inserting an image is optional',
+                                    0, 1, 1, 0, 0, 0, 0, 'n')
+message_info_1_ = proj2.create_label(mini_frames_2[0], ' * Fields containing * are needed',
+                                    0, 1, 1, 0, 0, 25, 0, 'n')
+message_info_1.configure(font= ('Times New Roman', 10, 'italic'))
+message_info_1_.configure(font= ('Times New Roman', 10, 'italic'))
+label_names_1 = ['First Name*', 'Middle Name', 'Last Name']
+label_names_2 = ['Password*', 'Confirm Password*']
+entries_in_create_account = []
+for i in label_names_1:
+    entry = proj2.create_entry_with_label(mini_frames_2[1], i, 'Times New Roman', 13, '', None, 18,
+                                        0, x, 1, x, 0, 10, 0, 0, 'w')
+    entries_in_create_account.append(entry)
+    x += 1
+    if x == len(label_names_1):
+        x = 0
 
-return_button_2 = proj.button(mini_frames_2[6], 'Return', 15, 1,
-                            0, 0, 0, 0, 0, 0)
+email = proj2.create_entry_with_label(mini_frames_2[2], 'Email', 'Times New Roman', 13, '', None,
+                                      30, 0, 0, 1, 0, 0, 0, 0, 0, 'w')
+entries_in_create_account.append(email)
+
+message_info_2 = proj2.create_label(mini_frames_2[2], '* Incase of Access loss',
+                                    2, 0, 1, 0, 0, 0, 0,'w')
+message_info_2.configure(font= ('Times New Roman', 10, 'italic'))
+
+
+for i in label_names_2:
+    entry2 = proj2.create_entry_with_label(mini_frames_2[3], i, 'Times New Roman', 13, '', None, 18,
+                                        0, x, 1, x, 0, 10, 0, 0, 'w')
+    entries_in_create_account.append(entry2)
+    x += 1
+    if x == len(label_names_2):
+        x = 0
+        for index in [3, 4]:
+            entries_in_create_account[index].configure(show= '*')
+message_info_3 = proj2.create_label(mini_frames_2[3], '*', 0, 2, 1, 0, 0, 0, 0, 'w')
+
+
+return_button_2 = proj.button(mini_frames_2[4], 'Return', 15, 1,
+                            0, 0, 0, 10, 0, 0)
 return_button_2.configure(command= lambda :(proj.other_page(home_page_frame)))
+clear_button_2 = proj.button(mini_frames_2[4], 'Clear', 15, 1,
+                             0, 1, 0, 0, 0, 0, )
+clear_button_2.configure(command= clear)
+save_button = proj.button(mini_frames_2[4], 'Create Account', 15, 1,
+                          0, 3, 10, 0, 0, 0, )
+save_button.configure(command= save_new_user)
+
 # ___________________LVL 2: Create Account content_________________________
 # ___________________________________LVL 2:_________________________________________________
 
