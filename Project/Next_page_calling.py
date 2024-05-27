@@ -4,7 +4,7 @@ import GUI_Class_file
 proj = Next_Page_class.Our_project()
 proj2 = GUI_Class_file.MyGui2()
 root = proj.root_lvl1_(800, 600)
-root.geometry("750x900+1100+50")
+root.geometry("670x900+1200+50")
 x = 0
 num = 0
 # ______________________________FUNCTIONS____________________________________
@@ -72,8 +72,12 @@ def insert_img():
     imgeg.configure(image= new_img)
 
 def save_new_user():
-
     print("New User Added")
+    proj.other_page(home_page_frame)
+
+def forgot_password(event):
+    proj.other_page(forgot_password_labelframe)
+
 
 # ______________________________FUNCTIONS____________________________________
 
@@ -90,11 +94,16 @@ home_page_frame.configure(width= 400, height= 200)
 buy_ticket_onetime_frame = proj.frame_lvl_(main_frame, None, 0, 0, 'news')
 buy_ticket_onetime_frame.configure(width= 400, height= 200)
 
-buy_ticket_as_user_frame = proj.frame_lvl_(main_frame, 'yellow', 0, 0, 'news')
+buy_ticket_as_user_frame = proj.frame_lvl_(main_frame, None, 0, 0, 'news')
 buy_ticket_as_user_frame.configure()
 
 create_account_frame = proj.frame_lvl_(main_frame, None, 0, 0, 'news')
 buy_ticket_as_user_frame.configure()
+
+forgot_password_labelframe = proj2.create_labelframe(main_frame, 'Forgot Password?', None,
+                                                 0, 0, 0, 0, 0, 0, 'news')
+forgot_password_labelframe.configure(font= ('Times New Roman', 25, 'bold'))
+
 # _______________LVL 2:_____________________
 
 # _______________________________________LVL 3:_______________________________________________________
@@ -117,6 +126,13 @@ create_account_label_frame = proj2.create_labelframe(create_account_frame, ' Cre
 create_account_label_frame.pack(padx= (30, 30), pady= (30, 30))
 create_account_label_frame.configure(font= ('Times New Roman', 25, 'bold'))
 # _______________LVL 3: Create Account frames_____________________
+
+# _______________LVL 3: Buy ticket as user frames_____________________
+buy_as_user_labelframe = proj2.create_labelframe(buy_ticket_as_user_frame, 'Log-in', None, 0, 0, 0, 0, 0, 0, 'w')
+buy_as_user_labelframe.pack()
+buy_as_user_labelframe.configure(font= ('Times New Roman', 25, 'bold'))
+
+# _______________LVL 3: Buy ticket as user frames_____________________
 # _______________________________________LVL 3:_______________________________________________________
 
 
@@ -156,7 +172,22 @@ for i in range(7):
         mini_frames_2[2].configure()
         x = 0
 # _______________LVL 4: Create Account frames_____________________
+
+# _______________LVL 4: Buy ticket as user frames_____________________
+frame_holder_3 = proj.frame_lvl_(buy_as_user_labelframe, None, 0, 0, 'n')
+frame_holder_3.pack()
+
+mini_frames_3 = []
+for i in range(7):
+    frame2 = proj2.create_frame(frame_holder_3, None, x, 0, 0, 0, 15, 0, 'n')
+    mini_frames_3.append(frame2)
+    x += 1
+    if len(mini_frames_3) == 7:
+        x = 0
+# _______________LVL 4: Buy ticket as user frames_____________________
 # _______________________________________LVL 4:_______________________________________________________
+
+
 # ____________________________________________________FRAMES___________________________________________________________
 
 
@@ -170,6 +201,7 @@ purchase_button1 = proj.button(purchase_ticket_frame, 'Purchase Ticket (One Time
 purchase_button1.configure(command= lambda :proj.other_page(buy_ticket_onetime_frame))
 purchase_button2 = proj.button(purchase_ticket_frame, 'Purchase Ticket (As a user)', 25, 1,
                                1, 0, 10, 10, 20, 20)
+purchase_button2.configure(command= lambda : proj.other_page(buy_ticket_as_user_frame))
 create_account_button = proj.button(create_user_frame, 'Create an Account', 25, 1,
                                 1, 0, 10, 10, 20, 20)
 create_account_button.configure(command= lambda :(proj.other_page(create_account_frame)))
@@ -286,7 +318,7 @@ message_info_3 = proj2.create_label(mini_frames_2[3], '*', 0, 2, 1, 0, 0, 0, 0, 
 
 return_button_2 = proj.button(mini_frames_2[4], 'Return', 15, 1,
                             0, 0, 0, 10, 0, 0)
-return_button_2.configure(command= lambda :(proj.other_page(home_page_frame)))
+return_button_2.configure(command= lambda :(clear() ,proj.other_page(home_page_frame)))
 clear_button_2 = proj.button(mini_frames_2[4], 'Clear', 15, 1,
                              0, 1, 0, 0, 0, 0, )
 clear_button_2.configure(command= clear)
@@ -295,6 +327,26 @@ save_button = proj.button(mini_frames_2[4], 'Create Account', 15, 1,
 save_button.configure(command= save_new_user)
 
 # ___________________LVL 2: Create Account content_________________________
+
+
+# ___________________LVL 2: Buy ticket as user content_________________________
+username = proj2.create_entry_with_label(mini_frames_3[1], 'Username: ', 'Times New Roman', 15, '',
+                                         None, 20, 0, 0, 0, 1, 0, 0, 0, 0, 'w')
+password = proj2.create_entry_with_label(mini_frames_3[2], 'Password: ', 'Times New Roman', 15, '',
+                                         None, 20, 1, 0, 1, 1, 0, 0, 0, 0, 'w')
+password.configure(show= '*')
+log_in = proj.button(mini_frames_3[3], 'Log in', 15, 1, 0, 0, 0, 0 ,0, 0)
+forgor_password = proj2.create_label(mini_frames_3[4], 'Forgot Password?',
+                                     0, 0, 1, 0, 0, 0, 0, 'w')
+forgor_password.configure(cursor= 'hand2')
+forgor_password.bind('<Button-1>', forgot_password)
+
+return_button_3 = proj.button(mini_frames_3[6], 'Return', 15, 1,
+                              0, 0, 0, 0, 0, 0)
+return_button_3.configure(command= lambda :(clear(), proj.other_page(home_page_frame)))
+# ___________________LVL 2: Buy ticket as user content_________________________
+
+
 # ___________________________________LVL 2:_________________________________________________
 
 # ____________________________________________________CONTENTS__________________________________________________________
