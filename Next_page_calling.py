@@ -1,7 +1,7 @@
 import Next_Page_class_2
 import GUI_Class_file
 import sqlite3
-
+# Chanel Tibo
 proj = Next_Page_class_2.Our_project()
 proj2 = GUI_Class_file.MyGui2()
 root = proj.root_lvl1_(800, 600)
