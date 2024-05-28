@@ -21,7 +21,7 @@ class Our_project:
         main_frame.pack(fill=BOTH, expand=1)
 
         #   Creating a Canvas inside the Main_Frame
-        canvas = Canvas(main_frame, bg="light grey")
+        canvas = Canvas(main_frame, bg="white")
         canvas.pack(side=LEFT, fill=BOTH, expand=1)
 
         #   Adding a Scrollbar to the Canvas
@@ -51,6 +51,12 @@ class Our_project:
         label = tk.Label(container, text=label_name)
         label.grid(row=i, column=j)
         return label
+    
+    @staticmethod
+    def entry(container, i, j, pad_right, pad_left, pad_top, pad_bot, sticky):
+        entry = tk.Entry(container, width= 15)
+        entry.grid(row= i, column= j, padx= (pad_right, pad_left), pady= (pad_top, pad_bot), sticky= sticky)
+        return entry
 
     @staticmethod
     def label_frame_lvl_(container_lvl, label_name, i, j, w, h, sticky):
@@ -92,8 +98,8 @@ class Our_project:
         return combo_box
 
     @staticmethod
-    def button(container, btn_text, w, h, i, j, pad_left, pad_right, pad_top, pad_bot):
-        button = tk.Button(container, text=btn_text, width=w, height=h)
+    def button(container, btn_text, w, h, i, j, pad_left, pad_right, pad_top, pad_bot, bg, fg):
+        button = tk.Button(container, text=btn_text, width=w, height=h, bg=bg, fg=fg)
         button.grid(row=i, column=j, padx= (pad_left, pad_right), pady= (pad_top, pad_bot))
         return button
 
@@ -118,9 +124,3 @@ class Our_project:
     @staticmethod
     def other_page(page):
         page.tkraise()
-
-
-
-
-
-
