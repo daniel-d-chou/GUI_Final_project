@@ -97,11 +97,9 @@ def save_new_user():
 
             except TypeError:
                 fields = ["First_name, Middle_name, Last_name, Username_, Email, Password"]
-                values = ("'" + entries_in_create_account[0].get() + "','" + entries_in_create_account[
-                    1].get() + "','" +
-                          entries_in_create_account[2].get() + "',"
-                                                               "'" + entries_in_create_account[3].get() + "','" +
-                          entries_in_create_account[4].get() + "','" + entries_in_create_account[5].get() + "'")
+                values = ("'" + entries_in_create_account[0].get() + "','" + entries_in_create_account[1].get() + "',"
+                          "'" +entries_in_create_account[2].get() + "','" + entries_in_create_account[3].get() + "',"
+                          "'" +entries_in_create_account[4].get() + "','" + entries_in_create_account[5].get() + "'")
                 proj2.save_data_into_database("OOP_Final_projectDB", "Use_Information", fields[0], values)
                 proj2.create_messagebox("Success", "Account Created Successfully")
                 proj.other_page(home_page_frame)
@@ -240,6 +238,13 @@ welcome_labelframe.configure(font= ('helvetica', 25, 'bold'))
 frame_holder_4 = proj.frame_lvl_(welcome_labelframe, None, 0, 0, 'n')
 frame_holder_4.pack(padx= 80, pady= (0, 20))
 # _______________LVL 3: frames contained in user_frame_____________________
+
+# _______________ LVL 3: frames contained in forgot_password_frame _____________________
+forgor_password = proj2.create_labelframe(forgot_password_frame, 'Forgor Password?', None, 0, 0, 0, 0, 0, 0, 'n')
+forgor_password.configure(font= ('helvetica', 25, 'bold'))
+forgor_password.pack()
+frame_holder_5 = proj.frame_lvl_(forgor_password, None, 0, 0, 'n')
+# _______________ LVL 3: frames contained in forgot_password_frame _____________________
 # _______________________________________LVL 3:_______________________________________________________
 
 
@@ -301,6 +306,16 @@ for i in range(10):
         mini_frames_4.append(frame3)
         x = 0
 # _______________LVL 4: frames contained in frame_holder_4 (a frame contained in user_frame) _____________________
+
+# _______________LVL 4: frames contained in frame_holder_5 (a frame contained in forgot_password_frame) _____________________
+mini_frames_5 = []
+for i in range(10):
+    frame4 = proj2.create_frame(frame_holder_5, None, x, 0, 10, 10, 10, 0, 'n')
+    mini_frames_5.append(frame4)
+    x += 1
+    if len(mini_frames_5) == 10:
+        x = 0
+# _______________LVL 4: frames contained in frame_holder_5 (a frame contained in forgot_password_frame) _____________________
 # _______________________________________LVL 4:_______________________________________________________
 # ____________________________________________________FRAMES___________________________________________________________
 
@@ -526,9 +541,11 @@ confirm_button_2.configure(command= confirm_2)
 # ___________________________________LVL 2: Contents seen in user_frame_________________________________________________
 
 # ___________________________________LVL 2: Contents seen in forgot_password_frame_________________________________________________
-email_ = proj2.create_entry_with_label(forgot_password_frame, 'Email: ', 'helvetica', 15, '', None,
+email_ = proj2.create_entry_with_label(mini_frames_5[1], 'Email: ', 'helvetica', 15, '', None,
                                        25, 0, 0, 0, 1, 0, 0, 0, 0, 'w')
-return_button_5 = proj.button(forgot_password_frame, 'Return', 15, 1, 0, 0, 0, 0, 0, 0, None, None)
+username_forgor = proj2.create_entry_with_label(mini_frames_5[2], 'Username: ', 'helvetica', 15, '', None,
+                                       25, 0, 0, 0, 1, 0, 0, 0, 0, 'w')
+return_button_5 = proj.button(mini_frames_5[3], 'Return', 15, 1, 1, 0, 0, 0, 0, 0, None, None)
 return_button_5.configure(command= lambda :(proj.other_page(home_page_frame)))
 # ___________________________________LVL 2: Contents seen in forgot_password_frame_________________________________________________
 
