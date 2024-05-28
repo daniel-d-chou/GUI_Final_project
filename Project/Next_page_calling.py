@@ -262,7 +262,7 @@ create_user_frame.configure(font= ('helvetica', 15, 'bold'))
 mini_frames = []
 for i in range(9):
     frame = proj2.create_frame(one_time_ticket_purchase, None,
-                               x, 0, 15, 15, 10, 10, 'n')
+                               x, 0, 15, 15, 10, 10, 'w')
     x += 1
     mini_frames.append(frame)
     if len(mini_frames) == 9:
@@ -310,7 +310,7 @@ for i in range(10):
 # _______________LVL 4: frames contained in frame_holder_5 (a frame contained in forgot_password_frame) _____________________
 mini_frames_5 = []
 for i in range(10):
-    frame4 = proj2.create_frame(frame_holder_5, None, x, 0, 10, 10, 10, 0, 'n')
+    frame4 = proj2.create_frame(frame_holder_5, None, x, 0, 10, 10, 15, 0, 'n')
     mini_frames_5.append(frame4)
     x += 1
     if len(mini_frames_5) == 10:
@@ -325,7 +325,7 @@ for i in range(10):
 # ___________________________________LVL 2:_________________________________________________
 
 # ___________________________________LVL 2: Contents seen in home_page-frame_________________________________________________
-main_label = proj2.create_label(frame_holder_1, 'Ticket Trove Machine',
+main_label = proj2.create_label(frame_holder_1, 'Star Rail Transit',
                                 0, 0, 1, 0, 0, 30, 50, 'n')
 main_label.configure(font= ('helvetica', 30, 'bold'))
 purchase_button1 = proj.button(purchase_ticket_frame, 'Purchase Ticket (One Time)', 25, 2,
@@ -543,9 +543,13 @@ confirm_button_2.configure(command= confirm_2)
 # ___________________________________LVL 2: Contents seen in forgot_password_frame_________________________________________________
 email_ = proj2.create_entry_with_label(mini_frames_5[1], 'Email: ', 'helvetica', 15, '', None,
                                        25, 0, 0, 0, 1, 0, 0, 0, 0, 'w')
-username_forgor = proj2.create_entry_with_label(mini_frames_5[2], 'Username: ', 'helvetica', 15, '', None,
-                                       25, 0, 0, 0, 1, 0, 0, 0, 0, 'w')
-return_button_5 = proj.button(mini_frames_5[3], 'Return', 15, 1, 1, 0, 0, 0, 0, 0, None, None)
+username_forgor = proj2.create_entry_with_label(mini_frames_5[1], 'Username: ', 'helvetica', 15, '', None,
+                                       25, 1, 0, 1, 1, 0, 0, 10, 0, 'w')
+new_password = proj2.create_entry_with_label(mini_frames_5[2], 'New Password: ', 'helvetica', 12, '',
+                                         None, 20, 0, 0, 0, 1, 0, 0, 0, 0, 'w')
+confirm_new_password = proj2.create_entry_with_label(mini_frames_5[2], 'Confirm New Password: ', 'helvetica', 12, '',
+                                         None, 20, 1, 0, 1, 1, 0, 0, 10, 0, 'w')
+return_button_5 = proj.button(mini_frames_5[3], 'Return', 15, 1, 1, 0, 0, 0, 10, 0, None, None)
 return_button_5.configure(command= lambda :(proj.other_page(home_page_frame)))
 # ___________________________________LVL 2: Contents seen in forgot_password_frame_________________________________________________
 
